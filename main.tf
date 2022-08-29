@@ -27,7 +27,7 @@ resource "null_resource" "init_master" {
     sleep 30;
     gcloud compute ssh --project=${var.project_name} --zone=${var.zone} root@cks-master -- wget https://raw.githubusercontent.com/killer-sh/cks-course-environment/master/cluster-setup/latest/install_master.sh -O /tmp/install_master.sh;
     gcloud compute ssh --project=${var.project_name} --zone=${var.zone} root@cks-master -- bash /tmp/install_master.sh;
-    gcloud compute ssh --project=${var.project_name} --zone=${var.zone} root@cks-master -- kubeadm token create --print-join-command > /tmp/join_cluster.sh;
+    gcloud compute ssh --project=${var.project_name} --zone=${var.zone} root@cks-master --command="kubeadm token create --print-join-command &> /tmp/join_cluster.sh"
     EOF
   }
 
@@ -79,7 +79,7 @@ resource "null_resource" "join_cluster" {
     command = <<EOF
     gcloud compute scp --project=${var.project_name} --zone=${var.zone} cks-master:/tmp/join_cluster.sh /tmp/join_cluster.sh
     gcloud compute scp --project=${var.project_name} --zone=${var.zone} /tmp/join_cluster.sh cks-worker:/tmp/join_cluster.sh
-    gcloud compute ssh root@cks-worker -- bash /tmp/join_cluster.sh
+    gcloud compute ssh --project=${var.project_name} --zone=${var.zone} root@cks-worker --command="bash /tmp/join_cluster.sh;"
     EOF
   }
 
