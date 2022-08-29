@@ -1,4 +1,15 @@
 
+variable "project_name" {
+  description = "project name in gcp"
+  default     = ""
+  type        = string
+}
+
+variable "region" {
+  description = "region for google cloud"
+  default     = "us-central1"
+  type        = string
+}
 variable "zone" {
   description = "zone for cks-master and cks-worker"
   default     = "us-central1-a"
@@ -19,6 +30,6 @@ variable "machine_base_image" {
 
 variable "machine_disk_size" {
   description = "boot disk size of VM in GB"
-  type        = string
-  default     = "50GB"
+  type        = number
+  default     = 50
 }
