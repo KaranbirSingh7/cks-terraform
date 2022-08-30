@@ -21,6 +21,14 @@ resource "google_compute_instance" "cks_master" {
   }
 }
 
+resource "null_resource" "set_default_project" {
+  provisioner "local-exec" {
+    command = <<EOF
+    gcloud config set project ${var.project_name}
+    EOF
+  }
+}
+
 resource "null_resource" "init_master" {
   provisioner "local-exec" {
     command = <<EOF
