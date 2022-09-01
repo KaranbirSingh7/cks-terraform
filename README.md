@@ -43,6 +43,9 @@ In case you wanna add some other components to existing cluster.
     gcloud compute ssh root@cks-master --command="kubectl create -f https://raw.githubusercontent.com/killer-sh/cks-course-environment/master/course-content/opa/gatekeeper.yaml"
     ```
 
+    - Sample OPA templates can be found at https://github.com/killer-sh/cks-course-environment/tree/master/course-content/opa/deny-all
+
+
 
 
 
